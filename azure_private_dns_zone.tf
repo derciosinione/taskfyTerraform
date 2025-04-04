@@ -16,3 +16,21 @@ resource "azurerm_private_dns_zone_virtual_network_link" "cosmosdb_vnet_link" {
 
   tags = azurerm_resource_group.rg.tags
 }
+
+
+# output the private DNS zone ID and name
+
+output "dns_zone_id" {
+  value = azurerm_private_dns_zone.cosmosdb_dns.id
+}
+
+output "dns_zone_name" {
+  value = azurerm_private_dns_zone.cosmosdb_dns.name
+}
+
+output "dns_zone_link_id" {
+  value = azurerm_private_dns_zone_virtual_network_link.cosmosdb_vnet_link.id
+}
+output "dns_zone_link_name" {
+  value = azurerm_private_dns_zone_virtual_network_link.cosmosdb_vnet_link.name
+}

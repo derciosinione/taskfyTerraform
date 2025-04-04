@@ -15,3 +15,14 @@ resource "azurerm_private_endpoint" "cosmosdb_private_endpoint" {
 
   tags = azurerm_resource_group.rg.tags
 }
+
+
+# output the private endpoint ID and name
+
+output "private_endpoint_id" {
+  value = azurerm_private_endpoint.cosmosdb_private_endpoint.id
+}
+
+output "private_endpoint_name" {
+  value = azurerm_private_endpoint.cosmosdb_private_endpoint.name
+}

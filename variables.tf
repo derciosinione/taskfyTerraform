@@ -1,9 +1,3 @@
-
-
-variable "app_name" {
-  default = "taskify-app"
-}
-
 variable "location" {
   default = "francecentral"
 }
