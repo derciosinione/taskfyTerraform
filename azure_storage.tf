@@ -4,7 +4,6 @@ variable "storage_account_name" {
 }
 
 
-# Create Storage Account with private endpoint
 resource "azurerm_storage_account" "storage_account" {
   name                     = var.storage_account_name
   resource_group_name      = azurerm_resource_group.rg.name
@@ -13,8 +12,20 @@ resource "azurerm_storage_account" "storage_account" {
   account_replication_type = "LRS"
 }
 
+resource "azurerm_private_endpoint" "storage_private_endpoint" {
+  name                = "storage-private-endpoint"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = var.location
+  subnet_id           = azurerm_subnet.subnet.id
 
-# Create Network Security Group (NSG) for access control (allow your IP)
+  private_service_connection {
+    name                           = "storage-connection"
+    private_connection_resource_id = azurerm_storage_account.storage_account.id
+    is_manual_connection           = false
+    subresource_names              = ["blob"]
+  }
+}
+
 resource "azurerm_network_security_group" "network_security_group" {
   name                = "taskify-network-security-group"
   location            = var.location
@@ -33,13 +44,11 @@ resource "azurerm_network_security_group" "network_security_group" {
   }
 }
 
-# Associate NSG to subnet
-resource "azurerm_subnet_network_security_group_association" "example" {
+resource "azurerm_subnet_network_security_group_association" "subnet_nsg_association" {
   subnet_id                 = azurerm_subnet.subnet.id
   network_security_group_id = azurerm_network_security_group.network_security_group.id
 }
 
-# Create Storage Account Access Policy for Portal Access
 resource "azurerm_storage_account_network_rules" "storage_account_network_rules" {
   storage_account_id = azurerm_storage_account.storage_account.id
 
@@ -50,7 +59,7 @@ resource "azurerm_storage_account_network_rules" "storage_account_network_rules"
   ]
 
   virtual_network_subnet_ids = [
-    azurerm_subnet.subnet.id # Subnet ID to restrict access to the private network
+    azurerm_subnet.subnet.id
   ]
 }
 
