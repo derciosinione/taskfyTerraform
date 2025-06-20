@@ -1,7 +1,6 @@
 variable "cosmos_db_account_name" {
-  default = "cosmodb-taskdb-taskify"
+  default = "cosmodb-taskify"
 }
-
 
 # Create Cosmos DB Account
 resource "azurerm_cosmosdb_account" "cosmosdb" {
@@ -24,7 +23,9 @@ resource "azurerm_cosmosdb_account" "cosmosdb" {
   }
 
   # IP range filter to allow access from specific IP
-  ip_range_filter = var.ip_range_filter # Allow access from your IP
+  # ip_range_filter = var.ip_range_filter # Allow access from your IP
+
+  ip_range_filter = join(",", var.allowed_ips)
 
   tags = azurerm_resource_group.rg.tags
 }
