@@ -39,7 +39,7 @@ resource "azurerm_network_security_group" "network_security_group" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefixes    = ["89.155.125.86/32", "213.22.159.152/32", "193.137.66.216/32", "193.137.66.206/32"]
+    source_address_prefixes    = var.allowed_ips1
     destination_address_prefix = "*"
   }
 }
@@ -52,12 +52,12 @@ resource "azurerm_subnet_network_security_group_association" "subnet_nsg_associa
 resource "azurerm_storage_account_network_rules" "storage_account_network_rules" {
   storage_account_id = azurerm_storage_account.storage_account.id
 
-  default_action = "Deny"
+  default_action = "Allow"
   bypass         = ["AzureServices"]
 
-  ip_rules = [
-    var.ip_address
-  ]
+  # ip_rules = [
+  #   var.ip_address
+  # ]
 
   virtual_network_subnet_ids = [
     azurerm_subnet.subnet.id
@@ -69,3 +69,4 @@ resource "azurerm_storage_container" "blob_container" {
   storage_account_name  = azurerm_storage_account.storage_account.name
   container_access_type = "private"
 }
+

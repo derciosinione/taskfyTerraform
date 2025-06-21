@@ -5,13 +5,13 @@ terraform {
       version = "~> 3.0"
     }
   }
-  #   cloud {
-  #     organization = "KiariCode"
-  #     workspaces {
-  #       name = "learn-terraform-azure"
-  #     }
-  #   }
-  #   required_version = ">= 1.1.0"
+  cloud {
+    organization = "KiariCode"
+    workspaces {
+      name = "learn-terraform-azure"
+    }
+  }
+  required_version = ">= 1.1.0"
 }
 
 

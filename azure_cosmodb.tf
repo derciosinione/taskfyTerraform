@@ -1,5 +1,5 @@
 variable "cosmos_db_account_name" {
-  default = "cosmodb-taskify"
+  default = "cosmodb-taskify-v1"
 }
 
 # Create Cosmos DB Account
@@ -21,9 +21,6 @@ resource "azurerm_cosmosdb_account" "cosmosdb" {
     location          = azurerm_resource_group.rg.location
     failover_priority = 0
   }
-
-  # IP range filter to allow access from specific IP
-  # ip_range_filter = var.ip_range_filter # Allow access from your IP
 
   ip_range_filter = join(",", var.allowed_ips)
 
