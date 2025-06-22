@@ -3,6 +3,10 @@ variable "storage_account_name" {
   default = "storagetaskfy"
 }
 
+variable "storage_private_container_name" {
+  default = "taskfy-blob-container"
+}
+
 
 resource "azurerm_storage_account" "storage_account" {
   name                     = var.storage_account_name
@@ -39,7 +43,7 @@ resource "azurerm_network_security_group" "network_security_group" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefixes    = var.allowed_ips1
+    source_address_prefixes    = var.allowed_ips
     destination_address_prefix = "*"
   }
 }
@@ -65,7 +69,7 @@ resource "azurerm_storage_account_network_rules" "storage_account_network_rules"
 }
 
 resource "azurerm_storage_container" "blob_container" {
-  name                  = "taskfy-blob-container"
+  name                  = var.storage_private_container_name
   storage_account_name  = azurerm_storage_account.storage_account.name
   container_access_type = "private"
 }
