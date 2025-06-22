@@ -36,7 +36,6 @@ locals {
 }
 
 
-# Recurso: App Service Plan (consumo para Function App)
 resource "azurerm_service_plan" "function_plan" {
   name                = var.function_plan_name
   location            = var.location
