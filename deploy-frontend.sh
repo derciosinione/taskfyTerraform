@@ -2,10 +2,10 @@
 
 # Configurações
 RESOURCE_GROUP="Taskify"
-CONTAINER_NAME="project-manager-api-back-v1"
+CONTAINER_NAME="project-manager-web-v1"
 ACR_NAME="taskfyacrregistry"
-IMAGE_NAME="project-manager-api-back:v2"
-DNS_NAME="project-manager-api-back-22196"
+IMAGE_NAME="project-manager-web:v1"
+DNS_NAME="project-manager-web-29131"
 
 # Obter credenciais do ACR
 echo "🔐 A obter credenciais do ACR..."
@@ -22,7 +22,7 @@ az container create \
   --registry-username $ACR_USERNAME \
   --registry-password $ACR_PASSWORD \
   --dns-name-label $DNS_NAME \
-  --ports 8080 \
+  --ports 3000 \
   --cpu 1 \
   --memory 1.5 \
   --os-type Linux
