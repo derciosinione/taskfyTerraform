@@ -10,9 +10,7 @@ variable "team" {
   default = "DevOps"
 }
 
-# variable "ip_range_filter" {
-#   default = "213.22.159.152/32"
-# }
+
 
 variable "allowed_ips" {
   description = "List of allowed IP addresses."
@@ -23,6 +21,7 @@ variable "allowed_ips" {
     "193.137.66.206/32",
     "213.22.158.67/32",
     "87.196.75.78/32",
+    "188.250.195.192/32"
 
 
     # "0.0.0.0/0",              # ⚠️ Acesso total – remover em produção!
@@ -60,13 +59,17 @@ variable "allowed_ips" {
   ]
 }
 
-# curl https://api.ipify.org executar para saber o ip publico
+# # curl https://api.ipify.org executar para saber o ip publico
 
-variable "ip_address" {
-  description = "Seu bloco /30 que inclui seu IP"
-  type        = string
-  default     = "213.22.70.60/30"
-}
+# variable "ip_address" {
+#   description = "Seu bloco /30 que inclui seu IP"
+#   type        = string
+#   default     = "213.22.70.60/30"
+# }
+
+# variable "ip_range_filter" {
+#   default = "213.22.159.152/32"
+# }
 
 
 
